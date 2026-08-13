@@ -10,7 +10,6 @@ const navLinks: NavLinkItem[] = [
   { name: "Skills", path: "/skills" },
   { name: "Work Experience", path: "/WorkExperience" },
   { name: "Projects", path: "/projects" },
-  { name: "Contact", path: "/contact" },
   { name: "Certificates", path: "/Certificates" },
   { name: "Resume", path: "/Resume" },
 ];
