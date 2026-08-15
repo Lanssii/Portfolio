@@ -256,23 +256,6 @@ const Hero = () => {
               ))}
             </div>
           </div>
-
-          {/* Bottom */}
-          <div
-            className="hero-bottom flex items-center justify-between border-t border-[#03045e]/10 py-5 text-[9px] md:text-[12px] font-bold uppercase tracking-[0.25em]
-          text-[#03045e]/40"
-          >
-            <span>Frontend Developer</span>
-
-            <span className="hidden sm:block">
-              React · Next.js · TypeScript · GSAP
-            </span>
-
-            <span className="flex items-center gap-2 text-[#0077b6]">
-              Scroll
-              <span>↓</span>
-            </span>
-          </div>
         </div>
       </div>
     </section>
