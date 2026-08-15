@@ -58,4 +58,8 @@ const experiences = [
   },
 ];
 
-export default experiences;
+export const WorkExperience = () => {
+  return <section>WorkExperience</section>;
+};
+
+export default WorkExperience;
