@@ -69,6 +69,7 @@ const WorkExperience = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Header reveal
       gsap.fromTo(
         ".experience-title > *",
         { y: 60, opacity: 0 },
@@ -82,6 +83,7 @@ const WorkExperience = () => {
         }
       );
 
+      // Timeline line
       gsap.fromTo(
         ".experience-line",
         { scaleY: 0, transformOrigin: "top" },
@@ -98,6 +100,7 @@ const WorkExperience = () => {
         }
       );
 
+      // Experience items
       gsap.utils.toArray<HTMLElement>(".experience-item").forEach((item) => {
         const content = item.querySelector(".experience-content");
         const number = item.querySelector(".experience-number span");
@@ -116,6 +119,7 @@ const WorkExperience = () => {
           }
         );
 
+        // Big animated number
         gsap.fromTo(
           number,
           { scale: 0.4, opacity: 0, x: -80, color: "#03045e", rotation: -8 },
@@ -148,6 +152,7 @@ const WorkExperience = () => {
           },
         });
 
+        // Number glow / pulse when entering viewport
         gsap.to(number, {
           textShadow: "0 0 40px rgba(0, 180, 216, 0.35)",
           scrollTrigger: {
@@ -182,6 +187,7 @@ const WorkExperience = () => {
         );
       });
 
+      // Hover animations
       gsap.utils.toArray<HTMLElement>(".experience-card").forEach((card) => {
         const title = card.querySelector(".experience-title");
         const arrow = card.querySelector(".experience-arrow");
@@ -232,16 +238,20 @@ const WorkExperience = () => {
       id="experience"
       className="relative overflow-hidden bg-[#effcff] px-5 py-28 text-[#03045e] sm:px-8 lg:py-40"
     >
+      {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#90e0ef]/20 blur-[150px]" />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
+        {/* title*/}
         <div className="experience-title">
           <h2 className="font-serif text-[clamp(3.5rem,8vw,7rem)] italic leading-[0.8] tracking-[-0.06em]">
             Work Experience
           </h2>
         </div>
 
+        {/* Experience list */}
         <div className="experience-list relative">
+          {/* Timeline */}
           <div className="absolute left-[15px] top-0 h-full w-px bg-[#03045e]/10 lg:left-[110px]" />
           <div className="experience-line absolute left-[15px] top-0 h-full w-px origin-top bg-[#0077b6] lg:left-[110px]" />
 
@@ -251,14 +261,17 @@ const WorkExperience = () => {
                 key={experience.number}
                 className="experience-item relative grid gap-8 pl-12 lg:grid-cols-[220px_1fr] lg:gap-16 lg:pl-0"
               >
+                {/* Number */}
                 <div className="experience-number hidden lg:block">
                   <span className="font-serif text-[clamp(6rem,11vw,12rem)] italic leading-none tracking-[-0.1em] text-[#03045e]/10">
                     {experience.number}
                   </span>
                 </div>
 
+                {/* Timeline dot */}
                 <div className="experience-dot absolute left-[7px] top-2 h-4 w-4 rounded-full border-2 border-[#effcff] bg-[#03045e] shadow-[0_0_0_5px_rgba(0,119,182,0.08)] transition-all lg:left-[102px]" />
 
+                {/* Content */}
                 <div className="experience-content">
                   <div className="experience-meta mb-5 flex flex-wrap items-center gap-3">
                     <span className="text-[9px] md:text-[12px] font-bold uppercase tracking-[0.2em] text-[#0077b6] sm:text-[10px]">
