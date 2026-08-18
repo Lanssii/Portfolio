@@ -181,6 +181,46 @@ const WorkExperience = () => {
           }
         );
       });
+
+      gsap.utils.toArray<HTMLElement>(".experience-card").forEach((card) => {
+        const title = card.querySelector(".experience-title");
+        const arrow = card.querySelector(".experience-arrow");
+
+        const enter = () => {
+          gsap.to(card, { x: 12, duration: 0.4, ease: "power3.out" });
+          gsap.to(title, {
+            x: 8,
+            color: "#0077b6",
+            duration: 0.4,
+            ease: "power3.out",
+          });
+          gsap.to(arrow, {
+            x: 8,
+            rotate: -45,
+            duration: 0.4,
+            ease: "power3.out",
+          });
+        };
+
+        const leave = () => {
+          gsap.to(card, { x: 0, duration: 0.4, ease: "power3.out" });
+          gsap.to(title, {
+            x: 0,
+            color: "#03045e",
+            duration: 0.4,
+            ease: "power3.out",
+          });
+          gsap.to(arrow, {
+            x: 0,
+            rotate: 0,
+            duration: 0.4,
+            ease: "power3.out",
+          });
+        };
+
+        card.addEventListener("mouseenter", enter);
+        card.addEventListener("mouseleave", leave);
+      });
     }, sectionRef);
 
     return () => ctx.revert();
