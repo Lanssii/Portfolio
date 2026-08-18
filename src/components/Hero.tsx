@@ -93,19 +93,7 @@ const Hero = () => {
           duration: 1,
         }
       )
-        .fromTo(
-          ".hero-role",
-          {
-            y: 30,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-          },
-          "-=0.5"
-        )
+
         .fromTo(
           ".hero-skills",
           {
@@ -131,17 +119,6 @@ const Hero = () => {
             duration: 0.8,
           },
           "-=0.5"
-        )
-        .fromTo(
-          ".hero-bottom",
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 1,
-            duration: 0.7,
-          },
-          "-=0.3"
         );
 
       // Typing animation

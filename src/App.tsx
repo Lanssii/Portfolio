@@ -1,5 +1,4 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.tsx";
 import Hero from "./components/Hero.tsx";
 import WorkExperience from "./components/WorkExperience.tsx";
@@ -7,15 +6,9 @@ import WorkExperience from "./components/WorkExperience.tsx";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        {/* <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/skills" element={<Skills />} />
-        </Routes> */}
-        <Hero />
-        <WorkExperience />
-      </BrowserRouter>
+      <Header />
+      <Hero />
+      <WorkExperience />
     </>
   );
 }
