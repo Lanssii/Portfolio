@@ -97,94 +97,94 @@ const WorkExperience = () => {
           },
         }
       );
+
+      gsap.utils.toArray<HTMLElement>(".experience-item").forEach((item) => {
+        const content = item.querySelector(".experience-content");
+        const number = item.querySelector(".experience-number span");
+        const dot = item.querySelector(".experience-dot");
+        const meta = item.querySelector(".experience-meta");
+
+        gsap.fromTo(
+          content,
+          { x: 80, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: { trigger: item, start: "top 82%" },
+          }
+        );
+
+        gsap.fromTo(
+          number,
+          { scale: 0.4, opacity: 0, x: -80, color: "#03045e", rotation: -8 },
+          {
+            scale: 1,
+            opacity: 1,
+            x: 0,
+            color: "#0077b6",
+            rotation: 0,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              end: "top 35%",
+              scrub: 1,
+            },
+          }
+        );
+
+        gsap.to(dot, {
+          backgroundColor: "#00b4d8",
+          scale: 1.8,
+          boxShadow:
+            "0 0 0 8px rgba(0, 180, 216, 0.12), 0 0 25px rgba(0, 180, 216, 0.5)",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 60%",
+            end: "bottom 40%",
+            scrub: true,
+          },
+        });
+
+        gsap.to(number, {
+          textShadow: "0 0 40px rgba(0, 180, 216, 0.35)",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 65%",
+            end: "top 30%",
+            scrub: true,
+          },
+        });
+
+        gsap.fromTo(
+          meta,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: item, start: "top 82%" },
+          }
+        );
+
+        gsap.fromTo(
+          dot,
+          { scale: 0 },
+          {
+            scale: 1,
+            duration: 0.5,
+            ease: "back.out(2)",
+            scrollTrigger: { trigger: item, start: "top 82%" },
+          }
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
-  gsap.utils.toArray<HTMLElement>(".experience-item").forEach((item) => {
-    const content = item.querySelector(".experience-content");
-    const number = item.querySelector(".experience-number span");
-    const dot = item.querySelector(".experience-dot");
-    const meta = item.querySelector(".experience-meta");
-
-    gsap.fromTo(
-      content,
-      { x: 80, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power4.out",
-        scrollTrigger: { trigger: item, start: "top 82%" },
-      }
-    );
-
-    gsap.fromTo(
-      number,
-      { scale: 0.4, opacity: 0, x: -80, color: "#03045e", rotation: -8 },
-      {
-        scale: 1,
-        opacity: 1,
-        x: 0,
-        color: "#0077b6",
-        rotation: 0,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: item,
-          start: "top 85%",
-          end: "top 35%",
-          scrub: 1,
-        },
-      }
-    );
-
-    gsap.to(dot, {
-      backgroundColor: "#00b4d8",
-      scale: 1.8,
-      boxShadow:
-        "0 0 0 8px rgba(0, 180, 216, 0.12), 0 0 25px rgba(0, 180, 216, 0.5)",
-      scrollTrigger: {
-        trigger: item,
-        start: "top 60%",
-        end: "bottom 40%",
-        scrub: true,
-      },
-    });
-
-    gsap.to(number, {
-      textShadow: "0 0 40px rgba(0, 180, 216, 0.35)",
-      scrollTrigger: {
-        trigger: item,
-        start: "top 65%",
-        end: "top 30%",
-        scrub: true,
-      },
-    });
-
-    gsap.fromTo(
-      meta,
-      { y: 20, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { trigger: item, start: "top 82%" },
-      }
-    );
-
-    gsap.fromTo(
-      dot,
-      { scale: 0 },
-      {
-        scale: 1,
-        duration: 0.5,
-        ease: "back.out(2)",
-        scrollTrigger: { trigger: item, start: "top 82%" },
-      }
-    );
-  });
 
   return (
     <section
