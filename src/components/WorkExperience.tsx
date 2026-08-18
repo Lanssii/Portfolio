@@ -1,6 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
@@ -63,6 +67,41 @@ const experiences = [
 const WorkExperience = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".experience-title > *",
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power4.out",
+          scrollTrigger: { trigger: ".experience-title", start: "top 80%" },
+        }
+      );
+
+      gsap.fromTo(
+        ".experience-line",
+        { scaleY: 0, transformOrigin: "top" },
+        {
+          scaleY: 1,
+          duration: 1.8,
+          ease: "power3.inOut",
+          scrollTrigger: {
+            trigger: ".experience-list",
+            start: "top 75%",
+            end: "bottom 70%",
+            scrub: 1,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -72,7 +111,7 @@ const WorkExperience = () => {
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#90e0ef]/20 blur-[150px]" />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
-        <div>
+        <div className="experience-title">
           <h2 className="font-serif text-[clamp(3.5rem,8vw,7rem)] italic leading-[0.8] tracking-[-0.06em]">
             Work Experience
           </h2>
