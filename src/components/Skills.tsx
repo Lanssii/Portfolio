@@ -13,15 +13,15 @@ const skillCategories = [
   },
   {
     title: "Styling",
-    skills: ["Tailwind CSS", "SASS", "GSAP"],
+    skills: ["Tailwind CSS", "SASS", "GSAP", "Figma"],
   },
   {
     title: "Data & Integration",
-    skills: ["REST APIs", "TanStack Query", "JQuery"],
+    skills: ["RESTful APIs", "TanStack Query", "Postman"],
   },
   {
     title: "Tools",
-    skills: ["Git", "GitHub", "BitBucket"],
+    skills: ["Git", "GitHub", "BitBucket", "npm", "Vite", "VS Code"],
   },
 ];
 
