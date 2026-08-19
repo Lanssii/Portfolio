@@ -1,5 +1,11 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const skills = [
   "React",
   "Next.js",
@@ -14,8 +20,97 @@ const skills = [
 ];
 
 const Skills = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title
+      gsap.fromTo(
+        ".skills-title",
+        {
+          y: 70,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: ".skills-title",
+            start: "top 80%",
+          },
+        }
+      );
+
+      // Skill boxes falling into place
+      gsap.fromTo(
+        ".skill-box",
+        {
+          y: -180,
+          x: (index) => {
+            if (index % 3 === 0) return -80;
+            if (index % 3 === 1) return 0;
+            return 80;
+          },
+          opacity: 0,
+          rotation: (index) => {
+            if (index % 2 === 0) return -12;
+            return 12;
+          },
+          scale: 0.7,
+        },
+        {
+          y: 0,
+          x: 0,
+          opacity: 1,
+          rotation: 0,
+          scale: 1,
+          duration: 1,
+          stagger: {
+            each: 0.1,
+            from: "random",
+          },
+          ease: "bounce.out",
+          scrollTrigger: {
+            trigger: ".skills-container",
+            start: "top 80%",
+          },
+        }
+      );
+
+      // Hover
+      gsap.utils.toArray<HTMLElement>(".skill-box").forEach((box) => {
+        const enter = () => {
+          gsap.to(box, {
+            y: -7,
+            scale: 1.08,
+            rotation: 0,
+            duration: 0.3,
+            ease: "power3.out",
+          });
+        };
+
+        const leave = () => {
+          gsap.to(box, {
+            y: 0,
+            scale: 1,
+            duration: 0.3,
+            ease: "power3.out",
+          });
+        };
+
+        box.addEventListener("mouseenter", enter);
+        box.addEventListener("mouseleave", leave);
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="skills"
       className="relative overflow-hidden bg-[#effcff] px-5 py-28 text-[#03045e] sm:px-8 lg:py-36 scroll-mt-20"
     >
