@@ -236,7 +236,7 @@ const WorkExperience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative overflow-hidden bg-[#effcff] px-5 py-28 text-[#03045e] sm:px-8 lg:py-40 scroll-mt-20"
+      className="relative overflow-hidden px-5 py-28 text-[#03045e] sm:px-8 lg:py-40 scroll-mt-20 bg-[#caf0f8]"
     >
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#90e0ef]/20 blur-[150px]" />
