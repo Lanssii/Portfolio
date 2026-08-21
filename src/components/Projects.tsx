@@ -53,22 +53,28 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-20 px-4 md:px-8 bg-gradient-to-b from-slate-50 to-white"
+      className="bg-gradient-to-b from-slate-50 to-white px-4 py-20 md:px-8"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
         <div className="section-title mb-16 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4">
+          <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-6xl">
             Projects
           </h2>
 
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-slate-600">
             A selection of my recent work showcasing modern web experiences
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {projects.map((project) => (
-            <article key={project.title} className="project-card">
+            <article
+              key={project.title}
+              className="project-card group overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+            >
+              {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={project.image}
@@ -77,8 +83,9 @@ const Projects = () => {
                 />
               </div>
 
+              {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900">
+                <h3 className="text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-blue-600">
                   {project.title}
                 </h3>
 
@@ -86,11 +93,12 @@ const Projects = () => {
                   {project.description}
                 </p>
 
+                {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700"
+                      className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
                     >
                       {tag}
                     </span>
