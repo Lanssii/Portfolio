@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -53,7 +57,6 @@ const projects = [
   },
 ];
 
-// Image loading hook
 const useImageLoader = (src: string) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -70,7 +73,6 @@ const useImageLoader = (src: string) => {
   return { isLoaded, hasError };
 };
 
-// Reusable project image component
 const ProjectImage = ({
   src,
   alt,
@@ -97,7 +99,7 @@ const ProjectImage = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
           </div>
@@ -128,6 +130,57 @@ const ProjectImage = ({
 };
 
 const Projects = () => {
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Section title animation
+      gsap.fromTo(
+        ".section-title",
+        {
+          y: 40,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".section-title",
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Project card animations
+      gsap.utils
+        .toArray<HTMLElement>(".project-card")
+        .forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            {
+              y: 60,
+              opacity: 0,
+            },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: index * 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="projects"
