@@ -82,7 +82,6 @@ const ProjectImage = ({
 }) => {
   const { isLoaded, hasError } = useImageLoader(src);
 
-  // Error state
   if (hasError) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-400/20 to-blue-600/20">
@@ -98,7 +97,7 @@ const ProjectImage = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
           </div>
@@ -109,7 +108,6 @@ const ProjectImage = ({
     );
   }
 
-  // Loading + loaded state
   return (
     <div className="relative h-full w-full bg-gray-100">
       {!isLoaded && (
@@ -154,13 +152,38 @@ const Projects = () => {
               key={project.title}
               className="project-card group overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
-              {/* Image */}
+              {/* Image Container */}
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                 <ProjectImage
                   src={project.image}
                   alt={project.title}
                   title={project.title}
                 />
+
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    View Live
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
 
               {/* Content */}
@@ -184,6 +207,29 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
+
+                {/* Mobile Link */}
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-800 md:hidden"
+                >
+                  Visit Project
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </a>
               </div>
             </article>
           ))}
