@@ -50,7 +50,59 @@ const projects = [
 ];
 
 const Projects = () => {
-  return <div>Projects</div>;
+  return (
+    <section
+      id="projects"
+      className="py-20 px-4 md:px-8 bg-gradient-to-b from-slate-50 to-white"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="section-title mb-16 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4">
+            Projects
+          </h2>
+
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            A selection of my recent work showcasing modern web experiences
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {projects.map((project) => (
+            <article key={project.title} className="project-card">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-slate-900">
+                  {project.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                  {project.description}
+                </p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Projects;
