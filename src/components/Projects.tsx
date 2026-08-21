@@ -200,23 +200,19 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-          {projects.map((project) => (
+          {projects.map(({ title, image, link, description, tags }) => (
             <article
-              key={project.title}
+              key={title}
               className="project-card group overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
               {/* Image Container */}
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                <ProjectImage
-                  src={project.image}
-                  alt={project.title}
-                  title={project.title}
-                />
+                <ProjectImage src={image} alt={title} title={title} />
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <a
-                    href={project.link}
+                    href={link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-blue-50 hover:text-blue-600"
@@ -242,16 +238,16 @@ const Projects = () => {
               {/* Content */}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-blue-600">
-                  {project.title}
+                  {title}
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  {project.description}
+                  {description}
                 </p>
 
                 {/* Tags */}
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
+                  {tags.map((tag) => (
                     <span
                       key={tag}
                       className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
@@ -263,7 +259,7 @@ const Projects = () => {
 
                 {/* Mobile Link */}
                 <a
-                  href={project.link}
+                  href={link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-800 md:hidden"
