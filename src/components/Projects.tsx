@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const projects = [
   {
     title: "Cocktail Website",
@@ -49,6 +53,82 @@ const projects = [
   },
 ];
 
+// Image loading hook
+const useImageLoader = (src: string) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+
+    img.src = src;
+
+    img.onload = () => setIsLoaded(true);
+    img.onerror = () => setHasError(true);
+  }, [src]);
+
+  return { isLoaded, hasError };
+};
+
+// Reusable project image component
+const ProjectImage = ({
+  src,
+  alt,
+  title,
+}: {
+  src: string;
+  alt: string;
+  title: string;
+}) => {
+  const { isLoaded, hasError } = useImageLoader(src);
+
+  // Error state
+  if (hasError) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-400/20 to-blue-600/20">
+        <div className="p-4 text-center">
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/20">
+            <svg
+              className="h-6 w-6 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+          </div>
+
+          <span className="text-sm font-semibold text-blue-900">{title}</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading + loaded state
+  return (
+    <div className="relative h-full w-full bg-gray-100">
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+        </div>
+      )}
+
+      <img
+        src={src}
+        alt={alt}
+        className={`h-full w-full object-cover object-top transition-opacity duration-500 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+};
+
 const Projects = () => {
   return (
     <section
@@ -76,10 +156,10 @@ const Projects = () => {
             >
               {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                <img
+                <ProjectImage
                   src={project.image}
                   alt={project.title}
-                  className="h-full w-full object-cover object-top"
+                  title={project.title}
                 />
               </div>
 
