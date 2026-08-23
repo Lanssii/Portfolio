@@ -10,7 +10,6 @@ const navLinks: NavLinkItem[] = [
   { name: "Experience", path: "#experience" },
   { name: "Projects", path: "#projects" },
   { name: "Certificates", path: "#certificates" },
-  { name: "Resume", path: "#resume" },
 ];
 
 const Header = () => {
