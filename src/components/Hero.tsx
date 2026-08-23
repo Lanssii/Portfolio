@@ -101,66 +101,63 @@ const Hero = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: {
-          ease: "power4.out",
-        },
+      // 1. Cursor Blinking
+      gsap.to(".typing-cursor", {
+        opacity: 0,
+        repeat: -1,
+        yoyo: true,
+        duration: 0.4,
+        ease: "power2.inOut",
       });
 
-      tl.fromTo(
-        ".hero-greeting",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 }
-      )
-        .fromTo(
-          ".hero-actions-row",
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
-          "-=0.5"
-        )
-        .fromTo(
-          ".hero-action-item",
-          { y: 20, opacity: 0, scale: 0.95 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.2)",
-          },
-          "-=0.6"
-        );
-
-      // Typing animation
-      const frontend = document.querySelector(".hero-frontend");
-      const developer = document.querySelector(".hero-developer");
-
+      // 2. Typing Helper Function
       const typeText = (
-        element: Element | null,
+        selector: string,
         text: string,
-        speed: number
+        speed: number,
+        onComplete?: () => void
       ) => {
+        const element = document.querySelector(selector);
         if (!element) return;
 
         const proxy = { progress: 0 };
-
         gsap.to(proxy, {
           progress: 1,
           duration: text.length * speed,
           ease: "none",
-          delay: 0.4,
           onUpdate: () => {
             const letters = Math.floor(proxy.progress * text.length);
             element.textContent = text.slice(0, letters);
           },
+          onComplete,
         });
       };
 
-      typeText(frontend, "Frontend", 0.08);
+      // 3. Sequential GSAP Execution
+      typeText(".type-name", "Lana Shotashvili", 0.06, () => {
+        typeText(".type-frontend", "Frontend", 0.07, () => {
+          typeText(".type-developer", "Developer", 0.07, () => {
+            // Animate Action Row on completion
+            gsap.fromTo(
+              ".hero-actions-row",
+              { y: 30, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.8, ease: "power4.out" }
+            );
 
-      gsap.delayedCall("Frontend".length * 0.08 + 0.55, () => {
-        typeText(developer, "Developer", 0.08);
+            gsap.fromTo(
+              ".hero-action-item",
+              { y: 20, opacity: 0, scale: 0.95 },
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "back.out(1.2)",
+              }
+            );
+          });
+        });
       });
     }, heroRef);
 
@@ -170,38 +167,46 @@ const Hero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen overflow-hidden bg-[#caf0f8] px-5 text-[#03045e] sm:px-8"
+      className="relative min-h-screen overflow-hidden bg-[#03045e] px-5 text-[#caf0f8] sm:px-8"
     >
+      {/* Programming Background Image*/}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/public/images/hero-bg.png"
+          alt="Programming background"
+          className="h-full w-full object-cover object-center opacity-25 mix-blend-luminosity"
+        />
+        {/* Soft Blue Tint Overlay for Color Uniformity */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#03045e]/90 via-[#0077b6]/40 to-[#03045e]/95" />
+      </div>
+
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-        {/* Background gradient */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,#90e0ef_0%,#caf0f8_45%,#effcff_100%)]" />
-
-        {/* Soft glow */}
-        <div className="pointer-events-none absolute left-1/2 top-[35%] h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00b4d8]/20 blur-[130px]" />
-
         <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] flex-col justify-center py-12">
-          {/* Main content */}
+          {/* Main Content Area */}
           <div className="flex flex-1 flex-col justify-center">
-            {/* Elegant Serif Name Header */}
+            {/* Clean Typed Name Header */}
             <div className="hero-greeting">
-              <h1 className="font-serif text-[clamp(3.5rem,7.5vw,7rem)] italic leading-[0.9] tracking-[-0.05em] text-[#03045e]">
-                Lana Shotashvili
+              <h1 className="font-serif text-[clamp(3.5rem,7.5vw,7rem)] italic leading-[0.9] tracking-[-0.05em] text-[#caf0f8]">
+                <span className="type-name" />
               </h1>
             </div>
 
-            {/* Main Role Title Header */}
+            {/* Clean Typed Role Header */}
             <div className="hero-name mt-6 md:mt-8">
-              <div className="flex flex-col md:flex-row md:items-baseline md:gap-x-6">
-                <h2 className="hero-frontend min-h-[0.85em] text-[clamp(3.2rem,7.2vw,6.5rem)] font-black uppercase leading-[0.85] tracking-[-0.07em]" />
-                <h2 className="hero-developer min-h-[0.85em] text-[clamp(3.2rem,7.2vw,6.5rem)] font-black uppercase leading-[0.85] tracking-[-0.07em] text-[#0077b6]" />
+              <div className="flex flex-wrap items-baseline gap-x-4 sm:gap-x-6">
+                <h2 className="type-frontend min-h-[0.85em] text-[clamp(3.2rem,7.2vw,6.5rem)] font-black uppercase leading-[0.85] tracking-[-0.07em] text-white" />
+                <h2 className="type-developer min-h-[0.85em] text-[clamp(3.2rem,7.2vw,6.5rem)] font-black uppercase leading-[0.85] tracking-[-0.07em] text-[#90e0ef]" />
+                <span className="typing-cursor inline-block text-[clamp(3.2rem,7.2vw,6.5rem)] font-light text-[#90e0ef]">
+                  |
+                </span>
               </div>
             </div>
 
-            {/* Bottom Action Row: PDFs Left, Social Connect Right */}
-            <div className="hero-actions-row mt-20 flex flex-col justify-between gap-8 border-t border-[#0077b6]/10 pt-8 xl:flex-row xl:items-end">
+            {/* Bottom Action Row: PDFs (Left) & Social Connections (Right) */}
+            <div className="hero-actions-row mt-20 flex flex-col justify-between gap-8 border-t border-[#90e0ef]/20 pt-8 opacity-0 xl:flex-row xl:items-end">
               {/* Left Group: PDF Downloads */}
               <div className="flex flex-col gap-3">
-                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#03045e]/40 md:text-[12px]">
+                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#90e0ef]/60 md:text-[12px]">
                   Documents
                 </span>
 
@@ -210,7 +215,7 @@ const Hero = () => {
                   <a
                     href="/LANA_SHOTASHVILI_CV.pdf"
                     download="Lana_Shotashvili_Resume.pdf"
-                    className="hero-action-item group inline-flex items-center gap-2.5 rounded-xl border border-[#0077b6]/30 bg-[#0077b6] px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-[#0077b6]/20 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-[#03045e] hover:shadow-xl"
+                    className="hero-action-item group inline-flex items-center gap-2.5 rounded-xl border border-[#90e0ef]/40 bg-[#0077b6] px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-[#0077b6]/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#90e0ef] hover:text-[#03045e] hover:shadow-xl"
                   >
                     <DocumentIcon type="download" />
                     <span>Download Resume (PDF)</span>
@@ -220,7 +225,7 @@ const Hero = () => {
                   <a
                     href="/Lana_Shotashvili_Cover_Letter.pdf"
                     download="Lana_Shotashvili_Cover_Letter.pdf"
-                    className="hero-action-item group inline-flex items-center gap-2.5 rounded-xl border border-[#0077b6]/30 bg-white/40 px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[#03045e] shadow-md shadow-[#0077b6]/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#0077b6] hover:bg-white/80 hover:text-[#0077b6] hover:shadow-lg"
+                    className="hero-action-item group inline-flex items-center gap-2.5 rounded-xl border border-[#90e0ef]/30 bg-white/10 px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[#caf0f8] shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#90e0ef] hover:bg-white/20 hover:text-white hover:shadow-lg"
                   >
                     <DocumentIcon type="letter" />
                     <span>Download Cover Letter (PDF)</span>
@@ -228,9 +233,9 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* Right Group: Social Connections */}
+              {/* Right Group: Social Links */}
               <div className="flex flex-col gap-3 xl:items-end">
-                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#03045e]/40 md:text-[12px]">
+                <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[#90e0ef]/60 md:text-[12px]">
                   Connect
                 </span>
 
@@ -241,13 +246,13 @@ const Hero = () => {
                       href={href}
                       target={name === "Email" ? undefined : "_blank"}
                       rel={name === "Email" ? undefined : "noopener noreferrer"}
-                      className="hero-action-item group flex h-12 items-center gap-2.5 rounded-xl border border-[#0077b6]/20 bg-white/30 px-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#0077b6]/60 hover:bg-white/70"
+                      className="hero-action-item group flex h-12 items-center gap-2.5 rounded-xl border border-[#90e0ef]/20 bg-white/10 px-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#90e0ef]/60 hover:bg-white/20 hover:text-white"
                     >
-                      <div className="flex h-5 w-5 items-center justify-center text-[#03045e]/70 transition-colors duration-300 group-hover:text-[#0077b6]">
+                      <div className="flex h-5 w-5 items-center justify-center text-[#90e0ef] transition-colors duration-300 group-hover:text-white">
                         <SocialIcon type={icon} />
                       </div>
 
-                      <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#03045e]/60 transition-colors duration-300 group-hover:text-[#0077b6] md:text-[10px]">
+                      <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#caf0f8] transition-colors duration-300 group-hover:text-white md:text-[10px]">
                         {name}
                       </span>
                     </a>
