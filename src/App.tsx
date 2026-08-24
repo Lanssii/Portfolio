@@ -1,4 +1,5 @@
 import "./App.css";
+import Education from "./components/Education.tsx";
 import Header from "./components/Header.tsx";
 import Hero from "./components/Hero.tsx";
 import Projects from "./components/Projects.tsx";
@@ -13,6 +14,7 @@ function App() {
       <Skills />
       <WorkExperience />
       <Projects />
+      <Education />
     </>
   );
 }
