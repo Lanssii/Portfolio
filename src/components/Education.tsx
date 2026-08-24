@@ -1,6 +1,11 @@
 "use client";
 
 import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type EducationItem = {
   institution: string;
@@ -34,6 +39,51 @@ const educationData: EducationItem[] = [
 
 const Education = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // 1. Title Entrance Animation
+      gsap.fromTo(
+        ".section-title",
+        { opacity: 0, y: -40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".section-title",
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // 2. Alternating Left/Right Card Animations
+      const cards = gsap.utils.toArray<HTMLElement>(".edu-card");
+
+      cards.forEach((card, index) => {
+        const xOffset = index % 2 === 0 ? -250 : 250;
+
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: xOffset },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
     <section
