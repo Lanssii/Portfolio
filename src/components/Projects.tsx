@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Card, type CardData } from "./Card";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projects = [
+const projects: CardData[] = [
   {
     title: "Cocktail Website",
     description:
@@ -57,88 +58,13 @@ const projects = [
   },
 ];
 
-const useImageLoader = (src: string) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    const img = new Image();
-
-    img.src = src;
-
-    img.onload = () => setIsLoaded(true);
-    img.onerror = () => setHasError(true);
-  }, [src]);
-
-  return { isLoaded, hasError };
-};
-
-const ProjectImage = ({
-  src,
-  alt,
-  title,
-}: {
-  src: string;
-  alt: string;
-  title: string;
-}) => {
-  const { isLoaded, hasError } = useImageLoader(src);
-
-  if (hasError) {
-    return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-400/20 to-blue-600/20">
-        <div className="p-4 text-center">
-          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/20">
-            <svg
-              className="h-6 w-6 text-blue-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-          </div>
-
-          <span className="text-sm font-semibold text-blue-900">{title}</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative h-full w-full bg-gray-100">
-      {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-        </div>
-      )}
-
-      <img
-        src={src}
-        alt={alt}
-        className={`h-full w-full object-cover object-top transition-opacity duration-500 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
-      />
-    </div>
-  );
-};
-
 const Projects = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Section title animation
       gsap.fromTo(
         ".section-title",
-        {
-          y: 40,
-          opacity: 0,
-        },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -158,10 +84,7 @@ const Projects = () => {
         .forEach((card, index) => {
           gsap.fromTo(
             card,
-            {
-              y: 60,
-              opacity: 0,
-            },
+            { y: 60, opacity: 0 },
             {
               y: 0,
               opacity: 1,
@@ -192,7 +115,6 @@ const Projects = () => {
           <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-6xl">
             Projects
           </h2>
-
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
             A selection of my recent work showcasing modern web experiences
           </p>
@@ -200,87 +122,8 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-          {projects.map(({ title, image, link, description, tags }) => (
-            <article
-              key={title}
-              className="project-card group overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              {/* Image Container */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                <ProjectImage src={image} alt={title} title={title} />
-
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition-all duration-300 hover:bg-blue-50 hover:text-blue-600"
-                  >
-                    View Live
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-blue-600">
-                  {title}
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  {description}
-                </p>
-
-                {/* Tags */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Mobile Link */}
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-800 md:hidden"
-                >
-                  Visit Project
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </article>
+          {projects.map((project, index) => (
+            <Card key={index} data={project} className="project-card" />
           ))}
         </div>
       </div>
