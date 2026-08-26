@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Card } from "./Card";
 
 type CategoryType =
   | "All"
@@ -114,6 +115,11 @@ export const categories: CategoryType[] = [
 const Certificates = () => {
   const [activeTab, setActiveTab] = useState<CategoryType>("All");
 
+  const filteredCertificates =
+    activeTab === "All"
+      ? certificateData
+      : certificateData.filter((item) => item.category === activeTab);
+
   return (
     <section
       id="certificates"
@@ -155,6 +161,13 @@ const Certificates = () => {
               </button>
             );
           })}
+        </div>
+
+        {/* Certificates Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredCertificates.map((cert, index) => (
+            <Card key={index} data={cert} className="cert-card" />
+          ))}
         </div>
       </div>
     </section>
