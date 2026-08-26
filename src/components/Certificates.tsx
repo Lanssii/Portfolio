@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Card } from "./Card";
 
-type CategoryType =
+gsap.registerPlugin(ScrollTrigger);
+
+export type CategoryType =
   | "All"
   | "Camps & Workshops"
   | "Awards & Projects"
@@ -20,7 +25,7 @@ export type CertificateItem = {
   isPending?: boolean;
 };
 
-export const certificateData: CertificateItem[] = [
+const certificateData: CertificateItem[] = [
   {
     title: "UniLab Acceleration Program",
     subtitle: "Frontend Developer Certificate",
@@ -105,7 +110,7 @@ export const certificateData: CertificateItem[] = [
   },
 ];
 
-export const categories: CategoryType[] = [
+const categories: CategoryType[] = [
   "All",
   "Camps & Workshops",
   "Awards & Projects",
@@ -114,15 +119,56 @@ export const categories: CategoryType[] = [
 
 const Certificates = () => {
   const [activeTab, setActiveTab] = useState<CategoryType>("All");
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const filteredCertificates =
+  const filteredCertificates: CertificateItem[] =
     activeTab === "All"
       ? certificateData
       : certificateData.filter((item) => item.category === activeTab);
 
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".cert-card",
+        { opacity: 0, y: 20, scale: 0.97 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.45,
+          stagger: 0.06,
+          ease: "power2.out",
+        }
+      );
+    },
+    { dependencies: [activeTab], scope: containerRef }
+  );
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".cert-title",
+        { opacity: 0, y: -30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".cert-title",
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    },
+    { scope: containerRef }
+  );
+
   return (
     <section
       id="certificates"
+      ref={containerRef}
       className="bg-white font-sans px-4 py-20 md:px-8 min-h-screen overflow-hidden scroll-mt-20"
     >
       <div className="mx-auto max-w-7xl">
@@ -145,7 +191,7 @@ const Certificates = () => {
 
         {/* Filter Navigation Bar */}
         <div className="md:w-3/4 lg:w-3/5 overflow-x-auto scroll-hide mx-auto mb-12 bg-[#caf0f8]/30 p-2 flex justify-between items-center gap-2 rounded-xl border border-[#0077b6]/20 shadow-sm">
-          {categories.map((category) => {
+          {categories.map((category: CategoryType) => {
             const isActive = activeTab === category;
             return (
               <button
@@ -165,7 +211,7 @@ const Certificates = () => {
 
         {/* Certificates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCertificates.map((cert, index) => (
+          {filteredCertificates.map((cert: CertificateItem, index: number) => (
             <Card key={index} data={cert} className="cert-card" />
           ))}
         </div>
