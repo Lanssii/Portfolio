@@ -1,5 +1,6 @@
 import "./App.css";
 import Certificates from "./components/Certificates.tsx";
+import Contact from "./components/Contact.tsx";
 import Education from "./components/Education.tsx";
 import Header from "./components/Header.tsx";
 import Hero from "./components/Hero.tsx";
@@ -17,6 +18,7 @@ function App() {
       <Projects />
       <Education />
       <Certificates />
+      <Contact />
     </>
   );
 }
