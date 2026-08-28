@@ -16,6 +16,17 @@ export const Contact: React.FC = () => {
     message: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 1000);
+  };
+
   return (
     <section
       id="contact"
@@ -65,6 +76,7 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
+            {/* Direct Links */}
             <div className="mt-5 flex gap-3 w-full max-w-md">
               <a
                 href="https://github.com/Lanssii"
@@ -92,7 +104,7 @@ export const Contact: React.FC = () => {
               Get in Touch
             </h3>
 
-            <form className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                   Name
@@ -146,9 +158,10 @@ export const Contact: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer text-sm"
+                disabled={isSubmitting}
+                className="w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer disabled:opacity-50 text-sm"
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
