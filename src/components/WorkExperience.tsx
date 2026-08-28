@@ -13,53 +13,57 @@ const experiences = [
     role: "Frontend Developer",
     company: "UniLab React Acceleration Program",
     description:
-      "Developing six production-level web applications using React, Next.js, TypeScript and Tailwind CSS. Working closely with backend developers and designers to build reusable, responsive interfaces and integrate REST APIs.",
+      "Developing production-level web applications using React, Next.js, TypeScript and Tailwind CSS. Building reusable and responsive UI components, integrating REST APIs with TanStack Query, implementing interactive interfaces, and collaborating with designers and backend developers in a team-based development workflow.",
     technologies: [
       "React",
       "Next.js",
       "TypeScript",
-      "Tailwind",
+      "Tailwind CSS",
       "TanStack Query",
       "REST APIs",
     ],
   },
+
   {
     number: "02",
     period: "03/2026 — Present",
     role: "Frontend Mentor",
     company: "Private Mentoring",
     description:
-      "Helping a frontend development student build real-world projects and strengthen problem-solving skills. Teaching HTML, CSS, JavaScript, React, Git and GitHub while reviewing code and guiding frontend best practices.",
+      "Mentoring a frontend development student through practical projects and structured problem-solving. Teaching HTML, CSS, JavaScript, React, Git and GitHub while reviewing code, explaining frontend concepts, debugging issues, and encouraging clean, maintainable development practices.",
     technologies: ["HTML", "CSS", "JavaScript", "React", "Git", "GitHub"],
   },
+
   {
     number: "03",
     period: "11/2025 — 03/2026",
     role: "Frontend Developer",
     company: "Freelance Project · Kyiv, Ukraine",
     description:
-      "Developed a 10+ page responsive e-commerce website using HTML5, CSS3 and JavaScript. Built reusable UI components and optimized layouts for desktop, tablet and mobile. Collaborated with a backend developer and gained hands-on experience with API integration and application architecture.",
+      "Developed a 10+ page responsive e-commerce website using HTML5, CSS3, Vanilla JavaScript and jQuery. Implemented interactive navigation, nested categories, product filtering, form validation, custom sliders and scroll-based UI behavior. Built responsive layouts and reusable frontend functionality while collaborating with a backend developer on API integration and application structure.",
     technologies: [
       "HTML5",
       "CSS3",
       "JavaScript",
+      "jQuery",
       "Responsive UI",
       "API Integration",
     ],
   },
+
   {
     number: "04",
     period: "04/2025 — 08/2025",
     role: "Technical Support & System Administration Intern",
     company: "Georgian Technical University",
     description:
-      "Monitored and maintained the university's live examination web portal, verifying test content, answer configurations and scoring integrity. Audited digital exam results, extracted performance metrics and managed structured records in Microsoft Excel.",
+      "Supported a live university examination web system by monitoring functionality, verifying test content, answer configurations and scoring accuracy, and identifying potential issues before and during examinations. Audited digital exam results, analyzed performance data and maintained structured records in Microsoft Excel.",
     technologies: [
       "Web Systems",
       "QA",
       "Data Auditing",
       "MS Excel",
-      "Exam Management",
+      "System Administration",
     ],
   },
 ];
@@ -178,7 +182,6 @@ const WorkExperience = () => {
       // Hover interactions
       gsap.utils.toArray<HTMLElement>(".experience-card").forEach((card) => {
         const title = card.querySelector(".role-heading");
-        const arrow = card.querySelector(".experience-arrow");
 
         const enter = () => {
           gsap.to(card, { x: 8, duration: 0.35, ease: "power2.out" });
@@ -187,7 +190,6 @@ const WorkExperience = () => {
             duration: 0.35,
             ease: "power2.out",
           });
-          gsap.to(arrow, { x: 6, y: -6, duration: 0.35, ease: "power2.out" });
         };
 
         const leave = () => {
@@ -197,7 +199,6 @@ const WorkExperience = () => {
             duration: 0.35,
             ease: "power2.out",
           });
-          gsap.to(arrow, { x: 0, y: 0, duration: 0.35, ease: "power2.out" });
         };
 
         card.addEventListener("mouseenter", enter);
@@ -220,8 +221,8 @@ const WorkExperience = () => {
       <div className="relative z-10 mx-auto max-w-[1250px]">
         {/* Title */}
         <div className="mb-16 border-b border-[#03045e]/10 pb-8">
-          <h2 className="experience-title-heading font-serif text-[clamp(2.5rem,5vw,4.5rem)] italic leading-[0.95] tracking-tight">
-            Work Experience
+          <h2 className="experience-title-heading mb-2 text-center text-3xl font-extrabold text-[#0077b6] sm:text-4xl md:text-5xl">
+            Work <span className="text-[#03045e]">Experience</span>
           </h2>
         </div>
 
@@ -265,9 +266,6 @@ const WorkExperience = () => {
                         <h3 className="role-heading text-[clamp(1.5rem,3vw,2.75rem)] font-black uppercase leading-[1.05] tracking-tight transition-colors">
                           {experience.role}
                         </h3>
-                      </div>
-                      <div className="experience-arrow hidden text-2xl text-[#0077b6] sm:block">
-                        ↗
                       </div>
                     </div>
 

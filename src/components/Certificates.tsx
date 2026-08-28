@@ -174,7 +174,7 @@ const Certificates = () => {
       <div className="mx-auto max-w-7xl">
         {/* Title Section */}
         <div className="cert-title mb-10 text-center">
-          <h2 className="mb-2 text-4xl font-extrabold text-[#0077b6] md:text-5xl flex items-center justify-center gap-3">
+          <h2 className="flex flex-col md:flex-row mb-2 text-3xl md:text-4xl font-extrabold text-[#0077b6] md:text-5xl flex items-center justify-center gap-3">
             <svg
               className="w-10 h-10 text-[#03045e]"
               fill="currentColor"
@@ -184,9 +184,6 @@ const Certificates = () => {
             </svg>
             Certificates & <span className="text-[#03045e]">Achievements</span>
           </h2>
-          <p className="mt-2 text-[#03045e]/80 text-base md:text-lg font-medium">
-            Accelerators, research conferences, honors, and skill workshops
-          </p>
         </div>
 
         {/* Filter Navigation Bar */}

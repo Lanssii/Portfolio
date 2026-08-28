@@ -112,8 +112,9 @@ const Projects = () => {
     >
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
+        {/* Section Header */}
         <div className="section-title mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-6xl">
+          <h2 className="mb-2 text-3xl font-extrabold text-[#03045e] sm:text-4xl md:text-5xl">
             Projects
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">

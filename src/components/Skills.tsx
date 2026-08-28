@@ -168,8 +168,8 @@ const Skills = () => {
       className="min-h-screen my-12 md:my-0 mx-4 md:mx-0 xl:my-20 2xl:my-0 py-16 scroll-mt-20 bg-slate-50"
     >
       {/* Title */}
-      <h2 className="text-4xl font-extrabold text-center text-slate-900 tracking-tight">
-        Tech Stack
+      <h2 className="mb-2 text-center text-3xl font-extrabold text-[#0077b6] sm:text-4xl md:text-5xl">
+        Tech <span className="text-[#03045e]">Stack</span>
       </h2>
 
       {/* Category Navigation Bar */}
@@ -183,7 +183,7 @@ const Skills = () => {
               onClick={() => setActiveTab(category)}
               className={`p-2 text-sm md:text-base w-full text-center cursor-pointer rounded-lg transition-all capitalize font-bold tracking-wide ${
                 isActive
-                  ? "bg-violet-600 text-white shadow-md shadow-violet-600/10"
+                  ? "bg-[#0077b6] text-white shadow-md shadow-violet-600/10"
                   : "bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               }`}
             >
