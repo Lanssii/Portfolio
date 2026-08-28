@@ -16,7 +16,7 @@ const socialLinks = [
   },
   {
     name: "Email",
-    href: "mailto:shotashvililana@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=shotashvililana@gmail.com",
     icon: "mail",
   },
 ];
@@ -213,7 +213,7 @@ const Hero = () => {
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   {/* CV Download */}
                   <a
-                    href="/LANA_SHOTASHVILI_CV.pdf"
+                    href="/Lana_Shotashvili_Resume.pdf"
                     download="Lana_Shotashvili_Resume.pdf"
                     className="hero-action-item group inline-flex items-center gap-2.5 rounded-xl border border-[#90e0ef]/40 bg-[#0077b6] px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-[#0077b6]/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#90e0ef] hover:text-[#03045e] hover:shadow-xl"
                   >
