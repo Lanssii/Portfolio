@@ -41,7 +41,7 @@ const certificateData: CertificateItem[] = [
       "Bug Fixes",
       "Code Review",
     ],
-    image: "public/images/unilab.png",
+    image: "/images/unilab.png",
   },
   {
     title: "Drone Swarm Choreography System",
@@ -67,7 +67,7 @@ const certificateData: CertificateItem[] = [
     description:
       "Presented research on complex 3D volumetric geometric structures, spatial positioning equations, and CAD-based mathematical modeling methodologies.",
     tags: ["AutoCAD", "3D Modeling", "Computational Geometry", "Applied Math"],
-    image: "public/images/london.jfif",
+    image: "/images/london.jfif",
   },
   {
     title: "Catalogue of Mechanisms via Transition-Inversion",
@@ -76,7 +76,7 @@ const certificateData: CertificateItem[] = [
     description:
       "Researched geometric transition-inversion techniques to catalog complex motion mechanisms using advanced CAD systems and graphic editors.",
     tags: ["AutoCAD", "Kinematics", "Graphic Editors", "Parametric Design"],
-    image: "public/images/boston.jfif",
+    image: "/images/boston.jfif",
   },
   {
     title: "AI Summer Camp",
@@ -90,7 +90,7 @@ const certificateData: CertificateItem[] = [
       "Prompt Engineering",
       "Agile Development",
     ],
-    image: "public/images/Ai-camp.png",
+    image: "/images/Ai-camp.png",
   },
   {
     title: "Public Speaking Winter Youth Camp",
