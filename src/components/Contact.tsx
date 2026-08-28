@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import emailjs from "@emailjs/browser";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -217,16 +218,31 @@ export const Contact: React.FC = () => {
     { scope: containerRef }
   );
 
-  const onSubmit = (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
 
-    console.log(data);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          time: new Date().toLocaleString(),
+        },
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        }
+      );
 
-    setTimeout(() => {
-      setIsSubmitting(false);
       setIsSent(true);
       reset();
-    }, 1000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
