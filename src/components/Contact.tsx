@@ -19,6 +19,179 @@ export const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
+  useGSAP(
+    () => {
+      const title = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".contact-title",
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      title
+        .fromTo(
+          ".contact-heading",
+          {
+            opacity: 0,
+            y: 40,
+            filter: "blur(8px)",
+          },
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.8,
+            ease: "power3.out",
+          }
+        )
+        .fromTo(
+          ".contact-subtitle",
+          {
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          "-=0.45"
+        );
+
+      const content = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".contact-content",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      content
+        .fromTo(
+          ".contact-avatar-card",
+          {
+            opacity: 0,
+            x: -80,
+            y: 30,
+            scale: 0.92,
+            rotation: -3,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            duration: 1,
+            ease: "power4.out",
+          }
+        )
+        .fromTo(
+          ".contact-avatar-image",
+          {
+            scale: 1.12,
+          },
+          {
+            scale: 1,
+            duration: 1.4,
+            ease: "power2.out",
+          },
+          "-=0.8"
+        )
+        .fromTo(
+          ".contact-profile-content",
+          {
+            opacity: 0,
+            y: 30,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+          },
+          "-=0.6"
+        )
+        .fromTo(
+          ".contact-social-link",
+          {
+            opacity: 0,
+            y: 20,
+            scale: 0.95,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.12,
+            ease: "back.out(1.5)",
+          },
+          "-=0.4"
+        )
+        .fromTo(
+          ".contact-form",
+          {
+            opacity: 0,
+            x: 80,
+            y: 30,
+            scale: 0.94,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power4.out",
+          },
+          "-=0.8"
+        )
+        .fromTo(
+          ".contact-field",
+          {
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            stagger: 0.1,
+            ease: "power2.out",
+          },
+          "-=0.55"
+        )
+        .fromTo(
+          ".contact-submit",
+          {
+            opacity: 0,
+            y: 15,
+            scale: 0.96,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "back.out(1.4)",
+          },
+          "-=0.25"
+        );
+
+      gsap.to(".contact-avatar-image", {
+        y: -8,
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    },
+    { scope: containerRef }
+  );
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -38,8 +211,8 @@ export const Contact: React.FC = () => {
     >
       <div className="mx-auto max-w-7xl">
         {/* Title Section */}
-        <div className="mb-14 text-center">
-          <h2 className="mb-3 text-4xl font-black text-[#0077b6] md:text-5xl flex items-center justify-center gap-3 tracking-tight">
+        <div className="contact-title mb-14 text-center">
+          <h2 className="contact-heading mb-3 text-4xl font-black text-[#0077b6] md:text-5xl flex items-center justify-center gap-3 tracking-tight">
             <svg
               className="w-9 h-9 text-[#03045e]"
               fill="currentColor"
@@ -50,25 +223,25 @@ export const Contact: React.FC = () => {
             Contact <span className="text-[#03045e]">Me</span>
           </h2>
 
-          <p className="max-w-2xl mx-auto text-[#03045e]/80 text-base md:text-lg font-medium leading-relaxed">
+          <p className="contact-subtitle max-w-2xl mx-auto text-[#03045e]/80 text-base md:text-lg font-medium leading-relaxed">
             Let's talk about how I can bring value to your team from day one
           </p>
         </div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="contact-content grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Avatar Card */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          <div className="contact-avatar-card lg:col-span-5 flex flex-col items-center">
             <div className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden bg-white border border-[#0077b6]/20 shadow-xl group">
               <img
                 src={AVATAR_IMG}
                 alt="Lana Shotashvili - Frontend Developer"
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
+                className="contact-avatar-image w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-[#03045e]/90 via-[#03045e]/20 to-transparent" />
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="contact-profile-content absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h3 className="text-2xl font-bold tracking-tight">
                   Lana Shotashvili
                 </h3>
@@ -85,7 +258,7 @@ export const Contact: React.FC = () => {
                 href="https://github.com/Lanssii"
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-[#caf0f8] transition-all shadow-sm"
+                className="contact-social-link flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-[#caf0f8] transition-all shadow-sm"
               >
                 GitHub Profile
               </a>
@@ -94,7 +267,7 @@ export const Contact: React.FC = () => {
                 href="https://www.linkedin.com/in/lana-shotashvili-834aa9384/"
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-[#caf0f8] transition-all shadow-sm"
+                className="contact-social-link flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-[#caf0f8] transition-all shadow-sm"
               >
                 LinkedIn Profile
               </a>
@@ -102,7 +275,7 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Form Container */}
-          <div className="lg:col-span-7 bg-white p-7 md:p-9 rounded-2xl border border-[#0077b6]/20 shadow-xl">
+          <div className="contact-form lg:col-span-7 bg-white p-7 md:p-9 rounded-2xl border border-[#0077b6]/20 shadow-xl">
             <h3 className="text-2xl font-bold text-[#03045e] mb-6 text-center">
               Get in Touch
             </h3>
@@ -127,7 +300,7 @@ export const Contact: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
+                <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Name
                   </label>
@@ -144,7 +317,7 @@ export const Contact: React.FC = () => {
                   />
                 </div>
 
-                <div>
+                <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Email Address
                   </label>
@@ -161,7 +334,7 @@ export const Contact: React.FC = () => {
                   />
                 </div>
 
-                <div>
+                <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Message
                   </label>
@@ -181,7 +354,7 @@ export const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer disabled:opacity-50 text-sm"
+                  className="contact-submit w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer disabled:opacity-50 text-sm"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
