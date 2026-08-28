@@ -1,23 +1,48 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AVATAR_IMG = "/images/me-3D.png";
 
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be less than 50 characters"),
+
+  email: z.string().trim().email("Please enter a valid email address"),
+
+  message: z
+    .string()
+    .trim()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 export const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: "onBlur",
+  });
 
   useGSAP(
     () => {
@@ -192,14 +217,15 @@ export const Contact: React.FC = () => {
     { scope: containerRef }
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: ContactFormData) => {
     setIsSubmitting(true);
+
+    console.log(data);
 
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
-      setFormData({ name: "", email: "", message: "" });
+      reset();
     }, 1000);
   };
 
@@ -267,7 +293,7 @@ export const Contact: React.FC = () => {
                 href="https://www.linkedin.com/in/lana-shotashvili-834aa9384/"
                 target="_blank"
                 rel="noreferrer"
-                className="contact-social-link flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-[#caf0f8] transition-all shadow-sm"
+                className="contact-social-link flex-1 py-3 text-center rounded-xl bg-white border border-[#0077b6]/20 text-[#03045e] font-bold text-sm hover:bg-[#03045e] hover:text-white transition-all shadow-sm"
               >
                 LinkedIn Profile
               </a>
@@ -299,7 +325,8 @@ export const Contact: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                {/* Name */}
                 <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Name
@@ -307,16 +334,21 @@ export const Contact: React.FC = () => {
 
                   <input
                     type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
+                    {...register("name")}
                     placeholder="Your name or company"
-                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      errors.name ? "border-red-400" : "border-[#0077b6]/20"
+                    } bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm`}
                   />
+
+                  {errors.name && (
+                    <p className="mt-1.5 text-xs font-medium text-red-500">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
 
+                {/* Email */}
                 <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Email Address
@@ -324,16 +356,21 @@ export const Contact: React.FC = () => {
 
                   <input
                     type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    {...register("email")}
                     placeholder="name@example.com"
-                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      errors.email ? "border-red-400" : "border-[#0077b6]/20"
+                    } bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm`}
                   />
+
+                  {errors.email && (
+                    <p className="mt-1.5 text-xs font-medium text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
+                {/* Message */}
                 <div className="contact-field">
                   <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
                     Message
@@ -341,16 +378,21 @@ export const Contact: React.FC = () => {
 
                   <textarea
                     rows={4}
-                    required
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
+                    {...register("message")}
                     placeholder="Tell me about your team, job position, or project..."
-                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm resize-none"
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      errors.message ? "border-red-400" : "border-[#0077b6]/20"
+                    } bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm resize-none`}
                   />
+
+                  {errors.message && (
+                    <p className="mt-1.5 text-xs font-medium text-red-500">
+                      {errors.message.message}
+                    </p>
+                  )}
                 </div>
 
+                {/* Submit */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
