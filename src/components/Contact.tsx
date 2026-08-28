@@ -17,6 +17,7 @@ export const Contact: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +25,8 @@ export const Contact: React.FC = () => {
 
     setTimeout(() => {
       setIsSubmitting(false);
+      setIsSent(true);
+      setFormData({ name: "", email: "", message: "" });
     }, 1000);
   };
 
@@ -104,66 +107,86 @@ export const Contact: React.FC = () => {
               Get in Touch
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
-                  Name
-                </label>
+            {isSent ? (
+              <div className="p-8 bg-[#caf0f8]/40 border border-[#0077b6]/30 rounded-xl text-center">
+                <h4 className="text-xl font-bold text-[#03045e]">
+                  Message Received!
+                </h4>
 
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Your name or company"
-                  className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
-                />
+                <p className="text-[#0077b6] text-sm mt-2 font-medium">
+                  Thanks for reaching out. I'll check your note and get back to
+                  you shortly.
+                </p>
+
+                <button
+                  onClick={() => setIsSent(false)}
+                  className="mt-5 px-5 py-2.5 bg-[#03045e] text-[#caf0f8] rounded-lg font-bold text-xs hover:bg-[#0077b6] transition-all cursor-pointer shadow-sm"
+                >
+                  Send Another Message
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
+                    Name
+                  </label>
 
-              <div>
-                <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
-                  Email Address
-                </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    placeholder="Your name or company"
+                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
+                  />
+                </div>
 
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="name@example.com"
-                  className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
-                />
-              </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
+                    Email Address
+                  </label>
 
-              <div>
-                <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
-                  Message
-                </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    placeholder="name@example.com"
+                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm"
+                  />
+                </div>
 
-                <textarea
-                  rows={4}
-                  required
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  placeholder="Tell me about your team, job position, or project..."
-                  className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm resize-none"
-                />
-              </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#03045e] uppercase tracking-wider mb-2">
+                    Message
+                  </label>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer disabled:opacity-50 text-sm"
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </button>
-            </form>
+                  <textarea
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    placeholder="Tell me about your team, job position, or project..."
+                    className="w-full px-4 py-3 rounded-xl border border-[#0077b6]/20 bg-slate-50 text-[#03045e] font-medium focus:outline-none focus:bg-white focus:border-[#03045e] focus:ring-2 focus:ring-[#03045e]/10 transition-all text-sm resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 bg-[#03045e] text-[#caf0f8] font-bold rounded-xl shadow-md shadow-[#03045e]/10 hover:bg-[#0077b6] hover:text-white transition-all cursor-pointer disabled:opacity-50 text-sm"
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
