@@ -1,16 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-export type CardData = {
-  title: string;
-  description: string;
-  tags?: string[];
-  image?: string;
-  link?: string;
-  subtitle?: string;
-  awardBadge?: string;
-};
+import type { CardData } from "../../types/Card";
 
 const useImageLoader = (src?: string) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -103,7 +94,7 @@ export const Card = ({
 
           {awardBadge && (
             <span className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wide">
-              🏆 {awardBadge}
+              {awardBadge}
             </span>
           )}
 

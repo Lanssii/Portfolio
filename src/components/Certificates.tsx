@@ -5,117 +5,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Card } from "./ui/Card";
+import { certificateData, categories } from "../data/certificates";
+import type { CertificateItem, CategoryType } from "../types/certificates";
 
 gsap.registerPlugin(ScrollTrigger);
-
-export type CategoryType =
-  | "All"
-  | "Camps & Workshops"
-  | "Awards & Projects"
-  | "Conferences";
-
-export type CertificateItem = {
-  title: string;
-  subtitle: string;
-  category: CategoryType;
-  description: string;
-  tags: string[];
-  image?: string;
-  awardBadge?: string;
-  isPending?: boolean;
-};
-
-const certificateData: CertificateItem[] = [
-  {
-    title: "UniLab Acceleration Program",
-    subtitle: "Frontend Developer Certificate",
-    category: "Camps & Workshops",
-    description:
-      "Engineered responsive UI components and delivered client-facing web applications. Applied GitFlow branching, handled complex bug fixes, and participated in daily Agile standups and peer code reviews.",
-    tags: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "GitFlow",
-      "Bug Fixes",
-      "Code Review",
-    ],
-    image: "/images/unilab.png",
-  },
-  {
-    title: "Drone Swarm Choreography System",
-    subtitle: "Autonomous 3D UAV Swarm Control",
-    category: "Awards & Projects",
-    awardBadge: "Certificate Coming Soon",
-    isPending: true,
-    description:
-      "Engineered real-time 3D trajectory tracking and optimal collision-free assignment for 200 simulated drones using computer vision and numerical optimization.",
-    tags: [
-      "Python",
-      "OpenCV",
-      "SciPy",
-      "NumPy",
-      "Hungarian Algorithm",
-      "RK4 Kinematics",
-    ],
-  },
-  {
-    title: "Modeling of Volumetric Geometrical Objects",
-    subtitle: "V International Scientific Conference (London)",
-    category: "Conferences",
-    description:
-      "Presented research on complex 3D volumetric geometric structures, spatial positioning equations, and CAD-based mathematical modeling methodologies.",
-    tags: ["AutoCAD", "3D Modeling", "Computational Geometry", "Applied Math"],
-    image: "/images/london.jfif",
-  },
-  {
-    title: "Catalogue of Mechanisms via Transition-Inversion",
-    subtitle: "V International Scientific Conference (Boston)",
-    category: "Conferences",
-    description:
-      "Researched geometric transition-inversion techniques to catalog complex motion mechanisms using advanced CAD systems and graphic editors.",
-    tags: ["AutoCAD", "Kinematics", "Graphic Editors", "Parametric Design"],
-    image: "/images/boston.jfif",
-  },
-  {
-    title: "AI Summer Camp",
-    subtitle: "Collaborative Software Development",
-    category: "Camps & Workshops",
-    description:
-      "Developed software solutions integrating AI agents, LLM APIs, and prompt workflows while collaborating in agile team sprints.",
-    tags: [
-      "AI Agents",
-      "LLM Integration",
-      "Prompt Engineering",
-      "Agile Development",
-    ],
-    image: "/images/Ai-camp.png",
-  },
-  {
-    title: "Public Speaking Winter Youth Camp",
-    subtitle: "Leadership & Communication Workshop",
-    category: "Camps & Workshops",
-    awardBadge: "Certificate Coming Soon",
-    isPending: true,
-    description:
-      "Mastered technical presentation techniques, leadership dynamics, and structured argumentation for complex project defenses.",
-    tags: [
-      "Technical Speaking",
-      "Leadership",
-      "Project Defense",
-      "Communication",
-    ],
-    image: "/images/public-speaking.jpg",
-  },
-];
-
-const categories: CategoryType[] = [
-  "All",
-  "Camps & Workshops",
-  "Awards & Projects",
-  "Conferences",
-];
 
 const Certificates = () => {
   const [activeTab, setActiveTab] = useState<CategoryType>("All");
@@ -188,7 +81,7 @@ const Certificates = () => {
 
         {/* Filter Navigation Bar */}
         <div className="md:w-3/4 lg:w-3/5 overflow-x-auto scroll-hide mx-auto mb-12 bg-[#caf0f8]/30 p-2 flex justify-between items-center gap-2 rounded-xl border border-[#0077b6]/20 shadow-sm">
-          {categories.map((category: CategoryType) => {
+          {categories.map((category) => {
             const isActive = activeTab === category;
             return (
               <button
@@ -208,7 +101,7 @@ const Certificates = () => {
 
         {/* Certificates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCertificates.map((cert: CertificateItem, index: number) => (
+          {filteredCertificates.map((cert, index) => (
             <Card key={index} data={cert} className="cert-card" />
           ))}
         </div>

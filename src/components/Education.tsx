@@ -95,13 +95,6 @@ const Education = () => {
         {/* Title Section */}
         <div className="section-title mb-12 text-center">
           <h2 className="mb-2 text-4xl font-extrabold text-[#0077b6] md:text-5xl flex items-center justify-center gap-3">
-            <svg
-              className="w-10 h-10 text-[#03045e]"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4l7 3.82 7-3.82v-4L12 17l-7-3.82z" />
-            </svg>
             My <span className="text-[#03045e]">Education</span>
           </h2>
         </div>
