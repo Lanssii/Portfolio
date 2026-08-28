@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    number: "1",
+    number: "01",
     period: "04/2026 — Present",
     role: "Frontend Developer",
     company: "UniLab React Acceleration Program",
@@ -24,7 +24,7 @@ const experiences = [
     ],
   },
   {
-    number: "2",
+    number: "02",
     period: "03/2026 — Present",
     role: "Frontend Mentor",
     company: "Private Mentoring",
@@ -33,7 +33,7 @@ const experiences = [
     technologies: ["HTML", "CSS", "JavaScript", "React", "Git", "GitHub"],
   },
   {
-    number: "3",
+    number: "03",
     period: "11/2025 — 03/2026",
     role: "Frontend Developer",
     company: "Freelance Project · Kyiv, Ukraine",
@@ -48,7 +48,7 @@ const experiences = [
     ],
   },
   {
-    number: "4",
+    number: "04",
     period: "04/2025 — 08/2025",
     role: "Technical Support & System Administration Intern",
     company: "Georgian Technical University",
@@ -69,27 +69,29 @@ const WorkExperience = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header reveal
+      // Title reveal
       gsap.fromTo(
-        ".experience-title > *",
-        { y: 60, opacity: 0 },
+        ".experience-title-heading",
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power4.out",
-          scrollTrigger: { trigger: ".experience-title", start: "top 80%" },
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".experience-title-heading",
+            start: "top 85%",
+          },
         }
       );
 
-      // Timeline line
+      // Timeline rail progress
       gsap.fromTo(
         ".experience-line",
         { scaleY: 0, transformOrigin: "top" },
         {
           scaleY: 1,
-          duration: 1.8,
+          duration: 1.5,
           ease: "power3.inOut",
           scrollTrigger: {
             trigger: ".experience-list",
@@ -100,7 +102,7 @@ const WorkExperience = () => {
         }
       );
 
-      // Experience items
+      // List item animations
       gsap.utils.toArray<HTMLElement>(".experience-item").forEach((item) => {
         const content = item.querySelector(".experience-content");
         const number = item.querySelector(".experience-number span");
@@ -109,31 +111,29 @@ const WorkExperience = () => {
 
         gsap.fromTo(
           content,
-          { x: 80, opacity: 0 },
+          { x: 50, opacity: 0 },
           {
             x: 0,
             opacity: 1,
-            duration: 1,
-            ease: "power4.out",
+            duration: 0.9,
+            ease: "power3.out",
             scrollTrigger: { trigger: item, start: "top 82%" },
           }
         );
 
-        // Big animated number
         gsap.fromTo(
           number,
-          { scale: 0.4, opacity: 0, x: -80, color: "#03045e", rotation: -8 },
+          { scale: 0.6, opacity: 0, x: -40 },
           {
             scale: 1,
             opacity: 1,
             x: 0,
             color: "#0077b6",
-            rotation: 0,
             ease: "power3.out",
             scrollTrigger: {
               trigger: item,
               start: "top 85%",
-              end: "top 35%",
+              end: "top 45%",
               scrub: 1,
             },
           }
@@ -141,9 +141,8 @@ const WorkExperience = () => {
 
         gsap.to(dot, {
           backgroundColor: "#00b4d8",
-          scale: 1.8,
-          boxShadow:
-            "0 0 0 8px rgba(0, 180, 216, 0.12), 0 0 25px rgba(0, 180, 216, 0.5)",
+          scale: 1.5,
+          boxShadow: "0 0 0 7px rgba(0, 180, 216, 0.18)",
           scrollTrigger: {
             trigger: item,
             start: "top 60%",
@@ -152,24 +151,13 @@ const WorkExperience = () => {
           },
         });
 
-        // Number glow / pulse when entering viewport
-        gsap.to(number, {
-          textShadow: "0 0 40px rgba(0, 180, 216, 0.35)",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 65%",
-            end: "top 30%",
-            scrub: true,
-          },
-        });
-
         gsap.fromTo(
           meta,
-          { y: 20, opacity: 0 },
+          { y: 15, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.7,
+            duration: 0.6,
             ease: "power3.out",
             scrollTrigger: { trigger: item, start: "top 82%" },
           }
@@ -187,41 +175,29 @@ const WorkExperience = () => {
         );
       });
 
-      // Hover animations
+      // Hover interactions
       gsap.utils.toArray<HTMLElement>(".experience-card").forEach((card) => {
-        const title = card.querySelector(".experience-title");
+        const title = card.querySelector(".role-heading");
         const arrow = card.querySelector(".experience-arrow");
 
         const enter = () => {
-          gsap.to(card, { x: 12, duration: 0.4, ease: "power3.out" });
+          gsap.to(card, { x: 8, duration: 0.35, ease: "power2.out" });
           gsap.to(title, {
-            x: 8,
             color: "#0077b6",
-            duration: 0.4,
-            ease: "power3.out",
+            duration: 0.35,
+            ease: "power2.out",
           });
-          gsap.to(arrow, {
-            x: 8,
-            rotate: -45,
-            duration: 0.4,
-            ease: "power3.out",
-          });
+          gsap.to(arrow, { x: 6, y: -6, duration: 0.35, ease: "power2.out" });
         };
 
         const leave = () => {
-          gsap.to(card, { x: 0, duration: 0.4, ease: "power3.out" });
+          gsap.to(card, { x: 0, duration: 0.35, ease: "power2.out" });
           gsap.to(title, {
-            x: 0,
             color: "#03045e",
-            duration: 0.4,
-            ease: "power3.out",
+            duration: 0.35,
+            ease: "power2.out",
           });
-          gsap.to(arrow, {
-            x: 0,
-            rotate: 0,
-            duration: 0.4,
-            ease: "power3.out",
-          });
+          gsap.to(arrow, { x: 0, y: 0, duration: 0.35, ease: "power2.out" });
         };
 
         card.addEventListener("mouseenter", enter);
@@ -236,77 +212,75 @@ const WorkExperience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative overflow-hidden px-5 py-28 text-[#03045e] sm:px-8 lg:py-40 scroll-mt-20 bg-[#caf0f8]"
+      className="relative overflow-hidden px-6 py-24 text-[#03045e] sm:px-10 lg:py-32 scroll-mt-20 bg-[#caf0f8]"
     >
       {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#90e0ef]/20 blur-[150px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#90e0ef]/20 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-[1400px]">
-        {/* title*/}
-        <div className="experience-title">
-          <h2 className="font-serif text-[clamp(3.5rem,8vw,7rem)] italic leading-[0.8] tracking-[-0.06em]">
+      <div className="relative z-10 mx-auto max-w-[1250px]">
+        {/* Title */}
+        <div className="mb-16 border-b border-[#03045e]/10 pb-8">
+          <h2 className="experience-title-heading font-serif text-[clamp(2.5rem,5vw,4.5rem)] italic leading-[0.95] tracking-tight">
             Work Experience
           </h2>
         </div>
 
         {/* Experience list */}
         <div className="experience-list relative">
-          {/* Timeline */}
-          <div className="absolute left-[15px] top-0 h-full w-px bg-[#03045e]/10 lg:left-[110px]" />
-          <div className="experience-line absolute left-[15px] top-0 h-full w-px origin-top bg-[#0077b6] lg:left-[110px]" />
+          {/* Timeline rail */}
+          <div className="absolute left-[13px] top-0 h-full w-px bg-[#03045e]/10 lg:left-[100px]" />
+          <div className="experience-line absolute left-[13px] top-0 h-full w-px origin-top bg-[#0077b6] lg:left-[100px]" />
 
-          <div className="space-y-16 lg:space-y-24 mt-14">
+          <div className="space-y-14 lg:space-y-18">
             {experiences.map((experience) => (
               <article
                 key={experience.number}
-                className="experience-item relative grid gap-8 pl-12 lg:grid-cols-[220px_1fr] lg:gap-16 lg:pl-0"
+                className="experience-item relative grid gap-6 pl-10 lg:grid-cols-[160px_1fr] lg:gap-12 lg:pl-0"
               >
-                {/* Number */}
-                <div className="experience-number hidden lg:block">
-                  <span className="font-serif text-[clamp(6rem,11vw,12rem)] italic leading-none tracking-[-0.1em] text-[#03045e]/10">
+                {/* Mid-sized dynamic index */}
+                <div className="experience-number hidden lg:block text-right pr-8 pt-1">
+                  <span className="font-serif text-[clamp(3.5rem,6vw,5.5rem)] italic leading-none tracking-tighter text-[#03045e]/20 font-bold">
                     {experience.number}
                   </span>
                 </div>
 
                 {/* Timeline dot */}
-                <div className="experience-dot absolute left-[7px] top-2 h-4 w-4 rounded-full border-2 border-[#effcff] bg-[#03045e] shadow-[0_0_0_5px_rgba(0,119,182,0.08)] transition-all lg:left-[102px]" />
+                <div className="experience-dot absolute left-[6px] top-3 h-3.5 w-3.5 rounded-full border border-[#effcff] bg-[#03045e] transition-all lg:left-[94px]" />
 
-                {/* Content */}
+                {/* Content block */}
                 <div className="experience-content">
-                  <div className="experience-meta mb-5 flex flex-wrap items-center gap-3">
-                    <span className="text-[9px] md:text-[12px] font-bold uppercase tracking-[0.2em] text-[#0077b6] sm:text-[10px]">
+                  <div className="experience-meta mb-3 flex flex-wrap items-center gap-2.5">
+                    <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-[#0077b6]">
                       {experience.period}
                     </span>
-                    <span className="h-px w-8 bg-[#03045e]/15" />
-                    <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-[#03045e]/35 sm:text-[10px]">
+                    <span className="h-px w-6 bg-[#03045e]/20" />
+                    <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-[#03045e]/45">
                       {experience.company}
                     </span>
                   </div>
 
-                  <div className="experience-card group relative border-t border-[#03045e]/10 pt-6">
+                  <div className="experience-card group relative pt-2">
                     <div className="flex items-start justify-between gap-6">
                       <div>
-                        <h3 className="experience-title text-[clamp(2rem,4vw,4rem)] font-black uppercase leading-[0.9] tracking-[-0.06em]">
+                        <h3 className="role-heading text-[clamp(1.5rem,3vw,2.75rem)] font-black uppercase leading-[1.05] tracking-tight transition-colors">
                           {experience.role}
                         </h3>
-                        <p className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#0077b6]">
-                          {experience.company}
-                        </p>
                       </div>
                       <div className="experience-arrow hidden text-2xl text-[#0077b6] sm:block">
                         ↗
                       </div>
                     </div>
 
-                    <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-                      <p className="max-w-2xl text-sm leading-7 text-[#03045e]/55 sm:text-base">
+                    <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+                      <p className="max-w-2xl text-sm leading-relaxed text-[#03045e]/65 sm:text-base">
                         {experience.description}
                       </p>
+
                       <div className="flex flex-wrap gap-2 lg:max-w-xs lg:justify-end">
                         {experience.technologies.map((technology) => (
                           <span
                             key={technology}
-                            className="rounded-md border border-[#0077b6]/20 bg-white/40 px-3 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#03045e]/60 backdrop-blur-sm sm:text-[9px] md:text-[10px]"
+                            className="rounded-md border border-[#0077b6]/20 bg-white/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#03045e]/70 backdrop-blur-xs sm:text-[11px]"
                           >
                             {technology}
                           </span>

@@ -17,6 +17,14 @@ const projects: CardData[] = [
     image: "/images/cocktail.png",
   },
   {
+    title: "Food Website",
+    description:
+      "A comprehensive multi-page web application developed during my time at Interbusiness Academy. Features a full booking system, custom interactive menu pages, native JavaScript logic, and seamless REST API integrations.",
+    tags: ["React", "Next.js", "Tailwind CSS"],
+    link: "https://food-website-theta-seven.vercel.app/",
+    image: "/images/food-website.png",
+  },
+  {
     title: "Tbilo AI Camp",
     description:
       "A landing page for an AI hackathon, initially AI-generated and then heavily refactored with custom front-end logic and refined UI design. Upgraded to eliminate typical AI artifacts and deliver a polished, production-ready aesthetic.",
@@ -32,14 +40,7 @@ const projects: CardData[] = [
     link: "https://lanssii.github.io/shop.co/",
     image: "/images/shop-co.png",
   },
-  {
-    title: "Food Website",
-    description:
-      "A comprehensive multi-page web application developed during my time at Interbusiness Academy. Features a full booking system, custom interactive menu pages, native JavaScript logic, and seamless REST API integrations.",
-    tags: ["React", "Next.js", "Tailwind CSS"],
-    link: "https://food-website-theta-seven.vercel.app/",
-    image: "/images/food-website.png",
-  },
+
   {
     title: "Photosnap Website",
     description:
