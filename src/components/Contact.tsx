@@ -263,10 +263,10 @@ export const Contact: React.FC = () => {
           </p>
         </div>
 
-        {/* Main Grid */}
-        <div className="contact-content grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* Main Content */}
+        <div className="contact-content flex flex-col gap-10 lg:flex-row lg:items-start">
           {/* Avatar Card */}
-          <div className="contact-avatar-card lg:col-span-5 flex flex-col items-center">
+          <div className="contact-avatar-card flex w-full flex-col items-center lg:w-5/12">
             <div className="relative w-full max-w-md aspect-[3/4] rounded-2xl overflow-hidden bg-white border border-[#0077b6]/20 shadow-xl group">
               <img
                 src={AVATAR_IMG}
@@ -310,7 +310,7 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Form Container */}
-          <div className="contact-form lg:col-span-7 bg-white p-7 md:p-9 rounded-2xl border border-[#0077b6]/20 shadow-xl">
+          <div className="contact-form w-full bg-white p-7 md:p-9 rounded-2xl border border-[#0077b6]/20 shadow-xl lg:w-7/12">
             <h3 className="text-2xl font-bold text-[#03045e] mb-6 text-center">
               Get in Touch
             </h3>
