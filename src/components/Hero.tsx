@@ -172,7 +172,7 @@ const Hero = () => {
       {/* Programming Background Image*/}
       <div className="absolute inset-0 z-0">
         <img
-          src="/public/images/hero-bg.png"
+          src="/images/hero-bg.png"
           alt="Programming background"
           className="h-full w-full object-cover object-center opacity-25 mix-blend-luminosity"
         />
