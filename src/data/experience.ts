@@ -3,7 +3,27 @@ import type { Experience } from "../types/experience";
 export const experiences: Experience[] = [
   {
     number: "01",
-    period: "04/2026 — Present",
+    period: "10/2026 — Present",
+    role: "Frontend Developer",
+    company: "Helfy",
+    description:
+      "Developing and maintaining production web experiences for DoktorABC, a European digital healthcare platform. Contributing to a full-stack TypeScript monorepo, implementing responsive and pixel-perfect interfaces, managing localized content and product data across international markets, and collaborating with design, marketing, and engineering teams. Working within a Git-based development workflow with code reviews and CI.",
+    technologies: [
+      "JavaScript",
+      "React",
+      "TypeScript",
+      "Vite",
+      "Node.js",
+      "HTML5 & CSS3",
+      "Docker",
+      "Git",
+      "SEO",
+      "Localization (i18n)",
+    ],
+  },
+  {
+    number: "02",
+    period: "04/2026 — 09/2026",
     role: "Frontend Developer",
     company: "UniLab React Acceleration Program",
     description:
@@ -19,7 +39,7 @@ export const experiences: Experience[] = [
   },
 
   {
-    number: "02",
+    number: "03",
     period: "03/2026 — Present",
     role: "Frontend Mentor",
     company: "Private Mentoring",
@@ -29,7 +49,7 @@ export const experiences: Experience[] = [
   },
 
   {
-    number: "03",
+    number: "04",
     period: "11/2025 — 03/2026",
     role: "Frontend Developer",
     company: "Freelance Project · Kyiv, Ukraine",
@@ -46,7 +66,7 @@ export const experiences: Experience[] = [
   },
 
   {
-    number: "04",
+    number: "05",
     period: "04/2025 — 08/2025",
     role: "Technical Support & System Administration Intern",
     company: "Georgian Technical University",
