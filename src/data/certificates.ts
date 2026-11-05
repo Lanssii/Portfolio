@@ -34,6 +34,7 @@ export const certificateData: CertificateItem[] = [
       "Hungarian Algorithm",
       "RK4 Kinematics",
     ],
+    image: "images/certificate-python-1.jpg",
   },
   {
     title: "Modeling of Volumetric Geometrical Objects",
@@ -66,6 +67,20 @@ export const certificateData: CertificateItem[] = [
       "Agile Development",
     ],
     image: "/images/Ai-camp.png",
+  },
+  {
+    title: "Hinge-Lever Inverter Device",
+    subtitle: "Scientific Research | Printing & Instrument Engineering",
+    category: "Conferences",
+    description:
+      "Co-authored scientific research on the design and kinematic principles of a hinge-lever inverter device based on geometric inversion. Explored its mechanical structure, motion coordination, and practical applications in sheet-fed printing presses, instrument engineering, and geographical coordinate determination.",
+    tags: [
+      "Scientific Research",
+      "Mechanical Engineering",
+      "Kinematics",
+      "Mathematical Modeling",
+    ],
+    image: "/images/certificate-boston-2026.jpeg",
   },
   {
     title: "Public Speaking Winter Youth Camp",

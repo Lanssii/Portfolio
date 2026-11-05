@@ -312,7 +312,7 @@ export const Contact: React.FC = () => {
           {/* Form Container */}
           <div className="contact-form w-full bg-white p-7 md:p-9 rounded-2xl border border-[#0077b6]/20 shadow-xl lg:w-7/12">
             <h3 className="text-2xl font-bold text-[#03045e] mb-6 text-center">
-              Get in Touch
+              Get in Touch!
             </h3>
 
             {isSent ? (
