@@ -188,21 +188,24 @@ const WorkExperience = () => {
                 <div className="experience-dot absolute left-[6px] top-3 h-3.5 w-3.5 rounded-full border border-[#effcff] bg-[#03045e] transition-all lg:left-[94px]" />
 
                 {/* Content block */}
+
                 <div className="experience-content">
-                  <div className="experience-meta mb-3 flex flex-wrap items-center gap-2.5">
-                    <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-[#0077b6]">
+                  <div className="experience-meta mb-4 flex flex-wrap items-center gap-3">
+                    <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#03045e]/50">
                       {experience.period}
                     </span>
-                    <span className="h-px w-6 bg-[#03045e]/20" />
-                    <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-[#03045e]/45">
+
+                    <span className="h-1 w-1 rounded-full bg-[#0077b6]/50" />
+
+                    <span className="text-sm sm:text-base font-extrabold uppercase tracking-[0.12em] text-[#0077b6]">
                       {experience.company}
                     </span>
                   </div>
 
-                  <div className="experience-card group relative pt-2">
+                  <div className="experience-card group relative pt-1">
                     <div className="flex items-start justify-between gap-6">
                       <div>
-                        <h3 className="role-heading text-[clamp(1.5rem,3vw,2.75rem)] font-black uppercase leading-[1.05] tracking-tight transition-colors">
+                        <h3 className="role-heading text-[clamp(1.65rem,2.5vw,2.3rem)] font-extrabold uppercase leading-[1.1] tracking-tight transition-colors">
                           {experience.role}
                         </h3>
                       </div>
