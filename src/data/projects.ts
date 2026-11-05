@@ -59,13 +59,4 @@ export const projects: Project[] = [
     link: "https://react-hook-form-validation.vercel.app/",
     image: "/images/form-validation.png",
   },
-  {
-    id: "react-hook-form-validation",
-    title: "React Hook Form Validation",
-    description:
-      "A dedicated authentication playground built to showcase production-grade form handling. Integrates React Hook Form with Zod schema validation for strict type safety, real-time error handling, and clean state management.",
-    tags: ["React", "React Hook Form", "Zod", "Tailwind CSS"],
-    link: "https://react-hook-form-validation.vercel.app/",
-    image: "/images/form-validation.png",
-  },
 ];
